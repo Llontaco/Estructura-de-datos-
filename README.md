@@ -1,4 +1,7 @@
 # Estructura-de-datos-
 Tareas -Parte practica 
-probando probando 
+alumnos:
+-henry llontop falcon
+-yessly poma de la cruz
+
 
