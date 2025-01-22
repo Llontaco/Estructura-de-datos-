@@ -3,83 +3,92 @@ using namespace std;
 
 struct Vector
 {
-    int *m_pVect; // Pointer to the buffer
-    int m_nCount; // Control how many elements are actually used
-    int m_nMax; // Control how many are allocated as maximum
-    int m_nDelta; // To control the growing
+    int*m_pVect, // Puntero al buffer
+        m_nCount, // Controla cuántos elementos se están usando realmente
+        m_nMax, // Controla cuántos están asignados como máximo
+        m_nDelta; // Para controlar el crecimiento
 };
 
 void Resize(Vector *pThis);
 
-void Insert(Vector *pThis, int elem)
-{
-    if (pThis->m_nCount == pThis->m_nMax)
-        Resize(pThis);
 
+void Insertar(Vector *pThis, int elem)
+{
+    if( pThis->m_nCount == pThis->m_nMax )
+        Resize(pThis);
+    
     pThis->m_pVect[pThis->m_nCount++] = elem;
 }
-
 void Resize(Vector *pThis)
 {
+    
+    const int delta = 5; // Usado para aumentar el tamaño del vector
     int *pTemp, i;
-    pTemp = new int[pThis->m_nMax + pThis->m_nDelta]; // Alloc a new vector
-    for (i = 0; i < pThis->m_nMax; i++) // Transfer the elements
-        pTemp[i] = pThis->m_pVect[i]; // we can also use the function memcpy
-    delete[] pThis->m_pVect; // delete the old vector
-    pThis->m_pVect = pTemp; // Update the pointer
-    pThis->m_nMax += pThis->m_nDelta; // The Max has to be increased by delta
+    pTemp = new int[pThis->m_nMax + pThis->m_nDelta]; // Asignar un nuevo vector
+    for(i = 0 ; i < pThis->m_nMax ; i++) // Transferir los elementos
+        pTemp[i] = pThis->m_pVect[i]; // también podemos usar la función memcpy
+    delete [ ] pThis->m_pVect; // eliminar el vector antiguo
+    pThis->m_pVect = pTemp; // Actualizar el puntero
+    pThis->m_nMax += pThis->m_nDelta; // El Max tiene que ser incrementado por delta
+    
+    
+//	pThis->m_pVect = (int*)realloc(pThis->m_pVect, sizeof(int) * (pThis->m_nMax + pThis->m_nDelta)); (REVISARRR)
+//	pThis->m_nMax += pThis->m_nDelta;
 }
 
-void Display(Vector *pThis)
+void Mostrar(Vector *pThis)
 {
     cout << "Elementos en el arreglo: ";
-    for (int i = 0; i < pThis->m_nCount; i++)
+    for (int i = 0; i < pThis->m_nCount; i++) 
     {
         cout << pThis->m_pVect[i] << " ";
     }
     cout << endl;
-    cout << "Cantidad de elementos almacenados: " << pThis->m_nCount << endl;
+    cout << "Cantidad de elementos almacenados:" << pThis->m_nCount <<endl;
 }
 
-int Search(Vector *pThis, int elem)
+int Buscar(Vector* pThis, int elem)
 {
     for (int i = 0; i < pThis->m_nCount; i++)
     {
         if (pThis->m_pVect[i] == elem)
-            return i; // Return the index of the element
+            return i;
     }
-    return -1; // Element not found
+    return -1;  // No encontrado
 }
 
-void Delete(Vector *pThis, int elem)
+void Eliminar(Vector* pThis, int elem)
 {
-    int index = Search(pThis, elem);
-    if (index != -1) // Element found
+    int index = Buscar(pThis, elem);
+    if (index == -1)
     {
-        for (int i = index; i < pThis->m_nCount - 1; i++)
-        {
-            pThis->m_pVect[i] = pThis->m_pVect[i + 1]; // Shift elements to the left
-        }
-        pThis->m_nCount--; // Decrease the count of elements
+        cout << "Elemento no encontrado: " << elem << endl;
+        return;
     }
+
+    for (int i = index; i < pThis->m_nCount - 1; i++)
+    {
+        pThis->m_pVect[i] = pThis->m_pVect[i + 1];
+    }
+    pThis->m_nCount--;  // Reducir el contador
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[]) 
 {
     Vector myVect;
     myVect.m_nCount = 0;
     myVect.m_nMax = 0;
     myVect.m_nDelta = 5;
-
-    Insert(&myVect, 10);  // Insert element 10
-    Insert(&myVect, 20);  // Insert element 20
-    Insert(&myVect, 30);  // Insert element 30
-
-    Display(&myVect);  // Display the elements in the array
-
-    Delete(&myVect, 20); // Delete element 20
-
-    Display(&myVect);  // Display the elements in the array after deletion
-
+    
+        
+    Insertar(&myVect, 10);  // Insertar elemento 10
+    Insertar(&myVect, 20);  // Insertar elemento 20
+    Insertar(&myVect, 30);  // Insertar elemento 30
+        
+    Mostrar(&myVect);  // Mostrar los elementos en el arreglo
+    
+    Eliminar(&myVect, 20);
+    
+    Mostrar(&myVect);
     return 0;
 }

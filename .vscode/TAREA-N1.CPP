@@ -1,16 +1,16 @@
 #include <iostream>
 using namespace std;
 
-int gVect[100]; // Buffer to save the elements
-int gnCount = 0; // Counter to know the number of elements used
+int gVect[100]; // Buffer para guardar los elementos
+int gnCount = 0; // Contador para saber la cantidad de elementos usados
 
-void Insert(int elem)
+void Insertar(int elem)
 {
-    if (gnCount < 100) // we can only insert if there is space
-        gVect[gnCount++] = elem; // Insert the element at the end
+    if (gnCount < 100) // solo podemos insertar si hay espacio
+        gVect[gnCount++] = elem; // Insertar el elemento al final
 }
 
-void Display()
+void Mostrar()
 {
     cout << "Elementos en el arreglo: ";
     for (int i = 0; i < gnCount; i++)
@@ -21,40 +21,40 @@ void Display()
     cout << "Cantidad de elementos almacenados: " << gnCount << endl;
 }
 
-int Search(int elem)
+int Buscar(int elem)
 {
     for (int i = 0; i < gnCount; i++)
     {
         if (gVect[i] == elem)
-            return i; // Return the index of the element
+            return i; // Devolver el índice del elemento
     }
-    return -1; // Element not found
+    return -1; // Elemento no encontrado
 }
 
-void Delete(int elem)
+void Eliminar(int elem)
 {
-    int index = Search(elem);
-    if (index != -1) // Element found
+    int index = Buscar(elem);
+    if (index != -1) // Elemento encontrado
     {
         for (int i = index; i < gnCount - 1; i++)
         {
-            gVect[i] = gVect[i + 1]; // Shift elements to the left
+            gVect[i] = gVect[i + 1]; // Desplazar elementos a la izquierda
         }
-        gnCount--; // Decrease the count of elements
+        gnCount--; // Disminuir la cantidad de elementos
     }
 }
 
 int main(int argc, char *argv[])
 {
-    Insert(10);  // Insert element 10
-    Insert(20);  // Insert element 20
-    Insert(30);  // Insert element 30
+    Insertar(10);  // Insertar elemento 10
+    Insertar(20);  // Insertar elemento 20
+    Insertar(30);  // Insertar elemento 30
 
-    Display();  // Display the elements in the array
+    Mostrar();  // Mostrar los elementos en el arreglo
 
-    Delete(20); // Delete element 20
+    Eliminar(20); // Eliminar elemento 20
 
-    Display();  // Display the elements in the array after deletion
+    Mostrar();  // Mostrar los elementos en el arreglo después de la eliminación
 
     return 0;
 }
