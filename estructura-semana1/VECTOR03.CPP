@@ -3,10 +3,10 @@ using namespace std;
 
 struct Vector
 {
-    int*m_pVect, // Puntero al buffer
-        m_nCount, // Controla cuántos elementos se están usando realmente
-        m_nMax, // Controla cuántos están asignados como máximo
-        m_nDelta; // Para controlar el crecimiento
+    int*m_pVect, 
+        m_nCount, 
+        m_nMax, 
+        m_nDelta; 
 };
 
 void Resize(Vector *pThis);
@@ -22,18 +22,17 @@ void Insertar(Vector *pThis, int elem)
 void Resize(Vector *pThis)
 {
     
-    const int delta = 5; // Usado para aumentar el tamaño del vector
+    const int delta = 5; 
     int *pTemp, i;
-    pTemp = new int[pThis->m_nMax + pThis->m_nDelta]; // Asignar un nuevo vector
-    for(i = 0 ; i < pThis->m_nMax ; i++) // Transferir los elementos
-        pTemp[i] = pThis->m_pVect[i]; // también podemos usar la función memcpy
-    delete [ ] pThis->m_pVect; // eliminar el vector antiguo
-    pThis->m_pVect = pTemp; // Actualizar el puntero
-    pThis->m_nMax += pThis->m_nDelta; // El Max tiene que ser incrementado por delta
+    pTemp = new int[pThis->m_nMax + pThis->m_nDelta]; 
+    for(i = 0 ; i < pThis->m_nMax ; i++) 
+        pTemp[i] = pThis->m_pVect[i]; 
+    delete [ ] pThis->m_pVect; 
+    pThis->m_pVect = pTemp; 
+    pThis->m_nMax += pThis->m_nDelta; 
     
     
-//	pThis->m_pVect = (int*)realloc(pThis->m_pVect, sizeof(int) * (pThis->m_nMax + pThis->m_nDelta)); (REVISARRR)
-//	pThis->m_nMax += pThis->m_nDelta;
+
 }
 
 void Mostrar(Vector *pThis)

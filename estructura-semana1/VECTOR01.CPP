@@ -38,7 +38,7 @@ void Eliminar(int elem)
     {
         for (int i = index; i < gnCount - 1; i++)
         {
-            gVect[i] = gVect[i + 1]; // Desplazar elementos a la izquierda
+            gVect[i] = gVect[i + 1]; // Desplazamos elementos a la izquierda
         }
         gnCount--; // Disminuir la cantidad de elementos
     }
